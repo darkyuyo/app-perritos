@@ -107,7 +107,6 @@ function profile(name: string): Omit<Dog, "slug" | "name" | "siblingSlug" | "cou
       { label: "Comida", value: pending },
       { label: "Juguete", value: pending },
       { label: "Lugar de la casa", value: pending },
-      { label: "Paseo", value: pending },
     ],
     quirks: [pending, pending],
     routine: `Cuenta un día con ${name}: a qué hora come, cuándo pasea, dónde es la siesta y en qué momento se le nota más feliz.`,
@@ -125,7 +124,29 @@ export const dogs: Dog[] = [
     ...profile("Maddy"),
     birthdate: "01/10/2023",
     arrived: "01/12/2023",
+    breed: "Salchicha",
+    sex: "Femenino",
+    age: "3 años",
+    color: "Café gris",
+    weight: "4 kilos",
+    story:
+      "Maddy es hija única. Llegó muy chiquitita y se quedó así. Creció junto a Blacky y es salchicha.",
     personality: "Es chiquitita y se cree una princesa.",
+    likes: ["Dormir", "El papá", "La carne", "El pollito"],
+    dislikes: ["Despertarse temprano", "La comida de perros", "El frío"],
+    favorites: [
+      { label: "Comida", value: "Pollo y carne" },
+      { label: "Juguete", value: "El que tenga Blacky" },
+      { label: "Lugar de la casa", value: "Cama de Alfredo, sillón y cama de papás" },
+    ],
+    quirks: ["Se vuelve loca cuando le hacen sonidos agudos."],
+    routine:
+      "Duerme todo el día y hay que obligarla a comer, o seguir al papá cuando está con las plantas.",
+    care: "Hay que cuidarla de los parásitos y de la hormiga, porque se le hincha la cara.",
+    anecdotes: [
+      "Cuando hizo caca con sangre y tuvimos que llevarla al veterinario.",
+      "Solo la dejan ir a ella a la casa de los demás, porque se porta bien.",
+    ],
   },
   {
     slug: "blacky",
@@ -205,7 +226,7 @@ export const household = {
     },
     {
       title: "Charlotte y Simba",
-      text: "Son hermanos.Juegan brusco, les gusta correr y meterse en la piscina.",
+      text: "Son hermanos. Juegan brusco, les gusta correr y meterse en la piscina.",
     },
     {
       title: "Primos",
