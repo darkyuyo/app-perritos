@@ -197,19 +197,19 @@ export const pedigree = {
 
 export const household = {
   intro:
-    "Cuando quieras, cuenta cómo conviven los cuatro: quién empieza el juego, quién ocupa el sofá y cómo es un paseo con toda la manada.",
+    "Cuando entran, juegan en la sala y el sillón, los Goldens intentan jugar con Maddy suavemente y Blacky se pone celoso de ellos.",
   notes: [
     {
       title: "Maddy y Blacky",
-      text: "Son hermanos. Aquí va cómo se buscan, si duermen cerca o quién manda en casa. Por completar.",
+      text: "Son hermanos. Duermen harto rato juntos y juegan a morderse cuando Maddy quiere. Maddy siempre persigue a Blacky cuando le tiran sus juguetes.",
     },
     {
       title: "Charlotte y Simba",
-      text: "Son hermanos. Aquí va su forma de jugar y de estar juntos. Por completar.",
+      text: "Son hermanos.Juegan brusco, les gusta correr y meterse en la piscina.",
     },
     {
       title: "Primos",
-      text: "Maddy y Blacky son primos de Charlotte y Simba. Cuenta cómo se llevan las dos parejas. Por completar.",
+      text: "Maddy y Blacky son primos de Charlotte y Simba.Los Goldens se comportan cuando estan con sus primos para no hacerles daño.",
     },
   ],
 };
