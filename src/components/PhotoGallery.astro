@@ -17,7 +17,7 @@ const folderPath = `src/assets/fotos/${folder}/`;
 <section id={id} class="photo-gallery">
   <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
     <div>
-      <h2 class="font-display text-3xl text-stone-950 sm:text-4xl">{title}</h2>
+      <h2 class="font-display text-3xl text-blue-950 sm:text-4xl">{title}</h2>
       {
         photos.length > 0 && (
           <p class="mt-1 text-sm text-stone-500">
@@ -33,7 +33,7 @@ const folderPath = `src/assets/fotos/${folder}/`;
 
   {
     photos.length === 0 ? (
-      <div class="mt-5 rounded-3xl border border-dashed border-stone-300 bg-white/70 px-6 py-12 text-center">
+      <div class="mt-5 rounded-3xl border border-dashed border-blue-200 bg-white/80 px-6 py-12 text-center">
         <p class="font-display text-2xl text-stone-800">Todavía no hay fotos</p>
         <p class="mx-auto mt-2 max-w-md text-pretty text-stone-600">
           Guarda jpg, png o webp en esa carpeta. Si una se llama <span class="font-semibold">cover.jpg</span>, sale primera.
@@ -50,7 +50,7 @@ const folderPath = `src/assets/fotos/${folder}/`;
                 aria-label={alt}
                 data-full={photo.src}
                 data-alt={alt}
-                class="group relative block aspect-square w-full cursor-zoom-in overflow-hidden rounded-2xl bg-stone-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700"
+                class="group relative block aspect-square w-full cursor-zoom-in overflow-hidden rounded-2xl bg-blue-100 shadow-sm ring-1 ring-blue-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
               >
                 <Image
                   src={photo.image}

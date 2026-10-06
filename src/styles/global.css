@@ -9,6 +9,14 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  background-color: #eef5fb;
+  background-image:
+    radial-gradient(900px 420px at 0% -10%, rgb(191 219 254 / 0.85), transparent 60%),
+    radial-gradient(700px 380px at 100% 0%, rgb(224 242 254 / 0.95), transparent 55%);
+  background-attachment: fixed;
+}
+
 main section[id] {
   scroll-margin-top: 5.5rem;
 }

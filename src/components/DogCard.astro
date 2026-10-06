@@ -14,7 +14,7 @@ const cover = listPhotos(dog.slug)[0];
 
 <a
   href={`/perros/${dog.slug}`}
-  class="group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-stone-200 transition hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700 motion-safe:hover:-translate-y-0.5"
+  class="group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-md shadow-blue-950/5 ring-1 ring-blue-100 transition hover:shadow-xl hover:ring-blue-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 motion-safe:hover:-translate-y-1"
 >
   <div class:list={["relative aspect-[4/3] overflow-hidden", !cover && accent.wash]}>
     {
@@ -36,9 +36,9 @@ const cover = listPhotos(dog.slug)[0];
   <div class="flex flex-1 flex-col p-4 sm:p-5">
     <div class="flex items-center gap-2">
       <span class:list={["size-2.5 shrink-0 rounded-full", accent.dot]} aria-hidden="true"></span>
-      <h3 class="font-display text-2xl text-stone-950">{dog.name}</h3>
+      <h3 class="font-display text-2xl text-blue-950">{dog.name}</h3>
     </div>
     <p class="mt-2 text-sm leading-relaxed text-pretty text-stone-600">{packLine(dog)}</p>
-    <p class="mt-4 text-sm font-bold text-amber-800">Ver ficha</p>
+    <p class="mt-4 text-sm font-bold text-blue-700">Ver ficha</p>
   </div>
 </a>
