@@ -212,9 +212,29 @@ export const dogs: Dog[] = [
     siblingSlug: "simba",
     cousinSlugs: ["maddy", "blacky"],
     ...profile("Charlotte"),
+    breed: "Golden",
+    sex: "Femenino",
     birthdate: "01/09/2025",
+    age: "11 meses",
     arrived: "04/11/2026",
+    color: "Amarillo",
+    weight: "40 kilos",
+    story: "Llegó junto a Simba y desde ahí no se han separado.",
     personality: "Es cariñosa y le gusta meterse a la piscina.",
+    likes: ["El cariño en la guata", "Pegarle a Simba"],
+    dislikes: [],
+    favorites: [
+      { label: "Comida", value: "Todo" },
+      { label: "Juguete", value: "Casi ninguno" },
+      { label: "Lugar de la casa", value: "Cama de la terraza y el ventanal del patio" },
+    ],
+    quirks: ["El agua"],
+    routine: "Jugar con Simba, seguir a todos y que la regaloneen.",
+    care: "Se corta con los latones.",
+    anecdotes: [
+      "Cazaban ratones todos los días.",
+      "Intenta acercarse a Maddy, pero no puede.",
+    ],
   },
 ];
 
@@ -268,7 +288,7 @@ export const household = {
     },
     {
       title: "Primos",
-      text: "Maddy y Blacky son primos de Charlotte y Simba.Los Goldens se comportan cuando estan con sus primos para no hacerles daño.",
+      text: "Maddy y Blacky son primos de Charlotte y Simba. Los Goldens se comportan cuando estan con sus primos para no hacerles daño.",
     },
   ],
 };
