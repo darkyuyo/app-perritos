@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DogProfile from "../../components/DogProfile.astro";
+import { dogs, getDog, packLine } from "../../data/dogs";
+
+export function getStaticPaths() {
+  return dogs.map((dog) => ({
+    params: { slug: dog.slug },
+  }));
+}
+
+const slug = Astro.params.slug;
+if (!slug) {
+  throw new Error("Falta el nombre del perro.");
+}
+
+const dog = getDog(slug);
+---
+
+<BaseLayout title={dog.name} description={`Ficha de ${dog.name}. ${packLine(dog)}`}>
+  <DogProfile dog={dog} />
+</BaseLayout>

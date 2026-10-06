@@ -1,0 +1,17 @@
+Fotos de la manada
+
+Suelta las imágenes en la carpeta que corresponda y recarga la página.
+
+  todos/        fotos de varios perros juntos
+  maddy/
+  blacky/
+  simba/
+  charlotte/
+
+Formatos: jpg, jpeg, png, webp, gif o avif.
+Si una foto se llama cover.jpg, esa sale primera en la ficha y en las tarjetas.
+
+Las fotos del celular a veces vienen en HEIC. Pásalas a JPG para que se vean en la página.
+
+Los textos (historia, gustos, cumpleaños, nombres de papás y abuelos) se editan en:
+  src/data/dogs.ts

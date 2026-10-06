@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+main section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+summary.no-marker {
+  list-style: none;
+}
+
+summary.no-marker::-webkit-details-marker {
+  display: none;
+}

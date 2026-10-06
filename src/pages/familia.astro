@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FamilyTree from "../components/FamilyTree.astro";
+import { household } from "../data/dogs";
+---
+
+<BaseLayout
+  title="Familia"
+  description="Árbol familiar de Maddy, Blacky, Simba y Charlotte: dos parejas de hermanos que son primas entre sí."
+>
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+    <section>
+      <p class="text-sm font-bold tracking-wide text-amber-800 uppercase">La familia</p>
+      <h1 class="mt-2 font-display text-4xl text-balance text-stone-950 sm:text-5xl">Cómo están emparentados</h1>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-pretty text-stone-600">
+        Cuando tengas los nombres de papás y abuelos, escríbelos en
+        <span class="font-semibold text-stone-800">src/data/dogs.ts</span>, en el apartado de la familia.
+      </p>
+    </section>
+
+    <section id="arbol" class="mt-10">
+      <h2 class="sr-only">Árbol familiar</h2>
+      <FamilyTree />
+    </section>
+
+    <section id="convivencia" class="mt-16">
+      <h2 class="font-display text-3xl text-stone-950 sm:text-4xl">Cómo se llevan</h2>
+      <p class="mt-2 max-w-2xl text-pretty text-stone-600">{household.intro}</p>
+      <ul class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+        {
+          household.notes.map((note) => (
+            <li class="rounded-3xl bg-white p-5 ring-1 ring-stone-200">
+              <h3 class="font-display text-2xl text-stone-950">{note.title}</h3>
+              <p class="mt-2 text-pretty leading-relaxed text-stone-600">{note.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

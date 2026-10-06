@@ -1,0 +1,258 @@
+---
+import { Image } from "astro:assets";
+import DogCard from "./DogCard.astro";
+import PhotoGallery from "./PhotoGallery.astro";
+import { accents, dogs, getDog, packLine, pending, type Dog } from "../data/dogs";
+import { listPhotos } from "../lib/photos";
+
+interface Props {
+  dog: Dog;
+}
+
+const { dog } = Astro.props;
+const accent = accents[dog.slug];
+const cover = listPhotos(dog.slug)[0];
+const sibling = getDog(dog.siblingSlug);
+const cousins = dog.cousinSlugs.map((cousinSlug) => getDog(cousinSlug));
+const others = dogs.filter((item) => item.slug !== dog.slug);
+
+const facts = [
+  { label: "Raza", value: dog.breed },
+  { label: "Sexo", value: dog.sex },
+  { label: "Nacimiento", value: dog.birthdate },
+  { label: "Edad", value: dog.age },
+  { label: "Llegó a casa", value: dog.arrived },
+  { label: "Color", value: dog.color },
+  { label: "Peso", value: dog.weight },
+];
+
+const sections = [
+  ["#historia", "Historia"],
+  ["#gustos", "Gustos"],
+  ["#dia", "Día a día"],
+  ["#cuidados", "Cuidados"],
+  ["#anecdotas", "Anécdotas"],
+  ["#fotos", "Fotos"],
+];
+
+function valueClass(value: string): string {
+  return value === pending
+    ? "mt-1 font-normal text-stone-400 italic"
+    : "mt-1 font-semibold text-stone-900";
+}
+---
+
+<div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+  <nav aria-label="Miga de pan" class="text-sm text-stone-500">
+    <a href="/" class="font-semibold hover:text-stone-800">Inicio</a>
+    <span aria-hidden="true"> / </span>
+    <span class="text-stone-800">{dog.name}</span>
+  </nav>
+
+  <header class="mt-4 overflow-hidden rounded-3xl bg-white ring-1 ring-stone-200">
+    <div class:list={["relative h-56 sm:h-80", !cover && accent.wash]}>
+      {
+        cover ? (
+          <Image
+            src={cover.image}
+            alt={`Foto de ${dog.name}`}
+            widths={[640, 1200]}
+            sizes="(min-width: 1152px) 1152px, 100vw"
+            class="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <div class:list={["grid h-full place-items-center font-display text-7xl", accent.ink]}>
+            {dog.name.slice(0, 1)}
+          </div>
+        )
+      }
+    </div>
+    <div class="p-5 sm:p-8">
+      <div class="flex items-center gap-2">
+        <span class:list={["size-2.5 rounded-full", accent.dot]} aria-hidden="true"></span>
+        <p class="text-sm font-bold tracking-wide text-stone-500 uppercase">Ficha</p>
+      </div>
+      <h1 class="mt-1 font-display text-5xl text-stone-950 sm:text-6xl">{dog.name}</h1>
+      <p class="mt-3 max-w-2xl text-lg text-pretty text-stone-600">{packLine(dog)}</p>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        <li>
+          <a
+            href={`/perros/${sibling.slug}`}
+            class="inline-flex items-center gap-2 rounded-full bg-stone-100 px-3 py-1.5 text-sm font-semibold text-stone-800 hover:bg-stone-200"
+          >
+            <span class="text-stone-500">Hermanos</span>
+            {sibling.name}
+          </a>
+        </li>
+        {
+          cousins.map((cousin) => (
+            <li>
+              <a
+                href={`/perros/${cousin.slug}`}
+                class="inline-flex items-center gap-2 rounded-full bg-stone-100 px-3 py-1.5 text-sm font-semibold text-stone-800 hover:bg-stone-200"
+              >
+                <span class="text-stone-500">Primos</span>
+                {cousin.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </header>
+
+  <nav
+    aria-label="En esta ficha"
+    class="mt-6 -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
+  >
+    {
+      sections.map(([href, label]) => (
+        <a
+          href={href}
+          class="shrink-0 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-stone-700 ring-1 ring-stone-200 hover:bg-stone-50"
+        >
+          {label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <ul class="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+    {
+      facts.map((fact) => (
+        <li class="rounded-2xl bg-white px-4 py-3 ring-1 ring-stone-200">
+          <p class="text-sm text-stone-500">{fact.label}</p>
+          <p class={valueClass(fact.value)}>{fact.value}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <section id="historia" class="mt-12">
+    <h2 class="font-display text-3xl text-stone-950">Historia</h2>
+    <p class="mt-3 max-w-3xl text-lg leading-relaxed text-pretty text-stone-700">{dog.story}</p>
+    <h3 class="mt-8 font-display text-2xl text-stone-950">Carácter</h3>
+    <p class="mt-3 max-w-3xl leading-relaxed text-pretty text-stone-700">{dog.personality}</p>
+  </section>
+
+  <section id="gustos" class="mt-12">
+    <h2 class="font-display text-3xl text-stone-950">Gustos</h2>
+    <div class="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <article class="rounded-3xl bg-white p-5 ring-1 ring-stone-200">
+        <h3 class="font-display text-2xl text-stone-950">Le gusta</h3>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {
+            dog.likes.map((item) => (
+              <li
+                class:list={[
+                  "rounded-full px-3 py-1 text-sm",
+                  item === pending
+                    ? "bg-stone-100 text-stone-400 italic"
+                    : "bg-amber-50 font-semibold text-amber-950",
+                ]}
+              >
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+      <article class="rounded-3xl bg-white p-5 ring-1 ring-stone-200">
+        <h3 class="font-display text-2xl text-stone-950">No le gusta</h3>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {
+            dog.dislikes.map((item) => (
+              <li
+                class:list={[
+                  "rounded-full px-3 py-1 text-sm",
+                  item === pending
+                    ? "bg-stone-100 text-stone-400 italic"
+                    : "bg-stone-100 font-semibold text-stone-800",
+                ]}
+              >
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </div>
+
+    <h3 class="mt-8 font-display text-2xl text-stone-950">Favoritos</h3>
+    <dl class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {
+        dog.favorites.map((favorite) => (
+          <div class="rounded-2xl bg-white px-4 py-3 ring-1 ring-stone-200">
+            <dt class="text-sm text-stone-500">{favorite.label}</dt>
+            <dd class={valueClass(favorite.value)}>{favorite.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <h3 class="mt-8 font-display text-2xl text-stone-950">Manías</h3>
+    <ul class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {
+        dog.quirks.map((quirk) => (
+          <li
+            class:list={[
+              "rounded-2xl bg-white px-4 py-3 ring-1 ring-stone-200",
+              quirk === pending ? "text-stone-400 italic" : "text-stone-800",
+            ]}
+          >
+            {quirk}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section id="dia" class="mt-12">
+    <h2 class="font-display text-3xl text-stone-950">Día a día</h2>
+    <p class="mt-3 max-w-3xl text-lg leading-relaxed text-pretty text-stone-700">{dog.routine}</p>
+  </section>
+
+  <section id="cuidados" class="mt-12">
+    <h2 class="font-display text-3xl text-stone-950">Cuidados</h2>
+    <p class="mt-3 max-w-3xl text-lg leading-relaxed text-pretty text-stone-700">{dog.care}</p>
+  </section>
+
+  <section id="anecdotas" class="mt-12">
+    <h2 class="font-display text-3xl text-stone-950">Anécdotas</h2>
+    <ol class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {
+        dog.anecdotes.map((anecdote, index) => (
+          <li class="rounded-3xl bg-white p-5 ring-1 ring-stone-200">
+            <p class="text-sm font-bold text-stone-500">Recuerdo {index + 1}</p>
+            <p class:list={["mt-2 leading-relaxed", anecdote === pending ? "text-stone-400 italic" : "text-stone-800"]}>
+              {anecdote}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <div class="mt-12">
+    <PhotoGallery
+      id="fotos"
+      title={`Fotos de ${dog.name}`}
+      subject={dog.name}
+      folder={dog.slug}
+      photos={listPhotos(dog.slug)}
+    />
+  </div>
+
+  <section class="mt-16">
+    <h2 class="font-display text-3xl text-stone-950">El resto de la manada</h2>
+    <ul class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      {
+        others.map((item) => (
+          <li class="h-full">
+            <DogCard dog={item} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</div>

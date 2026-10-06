@@ -1,0 +1,145 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DogCard from "../components/DogCard.astro";
+import FamilyTree from "../components/FamilyTree.astro";
+import PhotoGallery from "../components/PhotoGallery.astro";
+import { accents, dogs, pending } from "../data/dogs";
+import { listPhotos } from "../lib/photos";
+
+const dates = dogs.map((dog) => ({
+  dog,
+  birthdate: dog.birthdate,
+  arrived: dog.arrived,
+}));
+---
+
+<BaseLayout
+  title="Mis perros"
+  description="Fichas, fotos y árbol familiar de Maddy, Blacky, Simba y Charlotte."
+>
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+    <section class="max-w-3xl">
+      <p class="text-sm font-bold tracking-wide text-amber-800 uppercase">Cuatro perros, una manada</p>
+      <h1 class="mt-2 font-display text-4xl leading-tight text-balance text-stone-950 sm:text-6xl">
+        Maddy, Blacky, Simba y Charlotte
+      </h1>
+      <p class="mt-4 text-lg leading-relaxed text-pretty text-stone-600">
+        Quién es cada uno, cómo se relacionan y las fotos de la casa. Los textos son una plantilla: se van rellenando en
+        <span class="font-semibold text-stone-800">src/data/dogs.ts</span>.
+      </p>
+      <ul class="mt-6 flex gap-3" aria-hidden="true">
+        {
+          dogs.map((dog) => (
+            <li
+              class:list={[
+                "grid size-12 place-items-center rounded-full font-display text-xl sm:size-14",
+                accents[dog.slug].chip,
+              ]}
+            >
+              {dog.name.slice(0, 1)}
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a
+          href="#manada"
+          class="inline-flex justify-center rounded-full bg-stone-900 px-5 py-3 text-sm font-bold text-white hover:bg-stone-800"
+        >
+          Ver a los cuatro
+        </a>
+        <a
+          href="#arbol"
+          class="inline-flex justify-center rounded-full bg-white px-5 py-3 text-sm font-bold text-stone-800 ring-1 ring-stone-300 hover:bg-stone-50"
+        >
+          Ver el árbol
+        </a>
+      </div>
+    </section>
+
+    <section id="manada" class="mt-14">
+      <h2 class="font-display text-3xl text-stone-950 sm:text-4xl">La manada</h2>
+      <p class="mt-2 max-w-2xl text-pretty text-stone-600">
+        Maddy y Blacky son hermanos. Charlotte y Simba son hermanos. Las dos parejas son primas.
+      </p>
+      <ul class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {
+          dogs.map((dog) => (
+            <li class="h-full">
+              <DogCard dog={dog} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section id="arbol" class="mt-16">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <h2 class="font-display text-3xl text-stone-950 sm:text-4xl">Árbol familiar</h2>
+        <a href="/familia" class="text-sm font-bold text-amber-800 hover:text-amber-950">Cómo se llevan</a>
+      </div>
+      <div class="mt-6">
+        <FamilyTree />
+      </div>
+    </section>
+
+    <div class="mt-16">
+      <PhotoGallery
+        id="fotos"
+        title="Todos juntos"
+        subject="la manada"
+        folder="todos"
+        photos={listPhotos("todos")}
+      />
+    </div>
+
+    <section id="fechas" class="mt-16">
+      <h2 class="font-display text-3xl text-stone-950 sm:text-4xl">Fechas</h2>
+      <p class="mt-2 max-w-2xl text-pretty text-stone-600">
+        Cumpleaños y el día en que cada uno llegó a casa. Todavía están en blanco.
+      </p>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {
+          dates.map(({ dog, birthdate, arrived }) => (
+            <li class="rounded-3xl bg-white p-4 ring-1 ring-stone-200 sm:p-5">
+              <div class="flex items-center gap-2">
+                <span class:list={["size-2.5 rounded-full", accents[dog.slug].dot]} aria-hidden="true" />
+                <h3 class="font-display text-2xl text-stone-950">
+                  <a href={`/perros/${dog.slug}`} class="hover:text-amber-800">
+                    {dog.name}
+                  </a>
+                </h3>
+              </div>
+              <dl class="mt-3 grid grid-cols-1 gap-2 text-sm min-[420px]:grid-cols-2">
+                <div>
+                  <dt class="text-stone-500">Cumpleaños</dt>
+                  <dd
+                    class:list={[
+                      birthdate === pending
+                        ? "font-normal text-stone-400 italic"
+                        : "font-semibold text-stone-900",
+                    ]}
+                  >
+                    {birthdate}
+                  </dd>
+                </div>
+                <div>
+                  <dt class="text-stone-500">Llegó a casa</dt>
+                  <dd
+                    class:list={[
+                      arrived === pending
+                        ? "font-normal text-stone-400 italic"
+                        : "font-semibold text-stone-900",
+                    ]}
+                  >
+                    {arrived}
+                  </dd>
+                </div>
+              </dl>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
