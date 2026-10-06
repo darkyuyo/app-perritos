@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import golden from "../assets/icon/icongolden.png";
+import salchicha from "../assets/icon/iconsalchicha.png";
 import { dogs } from "../data/dogs";
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -16,7 +19,11 @@ function isActive(href: string): boolean {
 
 <header class="sticky top-0 z-30 border-b border-blue-100/80 bg-white/80 backdrop-blur-md">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
-    <a href="/" class="font-display text-2xl tracking-tight text-blue-950">Perritos</a>
+    <a href="/" class="flex items-center gap-2 font-display text-2xl tracking-tight text-blue-950">
+      <Image src={salchicha} alt="" width={48} height={34} class="h-8 w-auto" />
+      <Image src={golden} alt="" width={40} height={40} class="h-8 w-auto" />
+      Perritos
+    </a>
 
     <nav class="hidden md:block" aria-label="Principal">
       <ul class="flex flex-wrap justify-end gap-1">

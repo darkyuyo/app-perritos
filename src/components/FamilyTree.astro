@@ -1,27 +1,30 @@
 ---
 import { Image } from "astro:assets";
-import { accents, getDog, pedigree, pending } from "../data/dogs";
+import { accents, getDog, pedigree } from "../data/dogs";
 import { listPhotos } from "../lib/photos";
 
 const branches = pedigree.branches;
 ---
 
 <div>
-  <p class="mx-auto max-w-2xl text-center text-pretty text-lg leading-relaxed text-stone-700">
-    {pedigree.note}
-  </p>
-
-  <div class="mx-auto mt-8 w-full max-w-5xl">
-    <article class="mx-auto max-w-sm rounded-3xl border border-dashed border-blue-200 bg-white px-5 py-4 text-center shadow-sm">
-      <p class="text-xs font-bold tracking-wide text-stone-500 uppercase">Generación anterior</p>
-      <h3 class="mt-1 font-display text-2xl text-blue-950">{pedigree.grandparentsLabel}</h3>
-      <p class:list={["mt-1", pedigree.grandparentsName === pending ? "text-stone-400 italic" : "font-semibold"]}>
-        {pedigree.grandparentsName}
-      </p>
+  <div class="mx-auto w-full max-w-5xl">
+    <article class="mx-auto max-w-sm overflow-hidden rounded-3xl bg-white text-center shadow-sm ring-1 ring-blue-100">
+      <Image
+        src={pedigree.grandparentsPhoto}
+        alt="Alfredo Llanos e Ingrid Frelijj juntos"
+        widths={[480, 800]}
+        sizes="(min-width: 640px) 24rem, 90vw"
+        class="aspect-[4/3] w-full object-cover object-[center_22%]"
+      />
+      <div class="px-5 py-4">
+        <p class="text-xs font-bold tracking-wide text-stone-500 uppercase">Generación anterior</p>
+        <h3 class="mt-1 font-display text-2xl text-blue-950">{pedigree.grandparentsLabel}</h3>
+        <p class="mt-1 font-semibold text-stone-950">{pedigree.grandparentsName}</p>
+      </div>
     </article>
 
     <p class="mx-auto mt-4 max-w-md text-center text-sm text-pretty text-stone-500">
-      Esos abuelos tuvieron dos hijos, y esos hijos fueron hermanos. Cada uno formó una pareja de perros.
+      Esos abuelos tuvieron dos hijas, Romina y Martha. Cada una formó una pareja de perros.
     </p>
 
     <div class="mx-auto mt-2 h-6 w-px bg-blue-200 md:hidden" aria-hidden="true"></div>
@@ -37,7 +40,7 @@ const branches = pedigree.branches;
         branches.map((branch, index) => (
           <>
             {index === 1 && (
-              <p class="z-10 justify-self-center self-center rounded-full bg-blue-700 px-4 py-1.5 text-sm font-bold text-white shadow-md shadow-blue-900/20 md:absolute md:top-24 md:left-1/2 md:-translate-x-1/2">
+              <p class="z-10 justify-self-center self-center rounded-full bg-blue-700 px-4 py-1.5 text-sm font-bold text-white shadow-md shadow-blue-900/20 md:absolute md:top-28 md:left-1/2 md:-translate-x-1/2">
                 Primos
               </p>
             )}
@@ -48,17 +51,18 @@ const branches = pedigree.branches;
               ]}
             >
               <div class="text-center">
-                <p class="text-sm font-bold text-stone-800">{branch.parentsLabel}</p>
-                <p
-                  class:list={[
-                    "mt-1",
-                    branch.parentsName === pending
-                      ? "text-stone-400 italic"
-                      : "font-display text-xl text-stone-950",
-                  ]}
-                >
-                  {branch.parentsName}
-                </p>
+                <span class="mx-auto block size-20 overflow-hidden rounded-full ring-2 ring-blue-200">
+                  <Image
+                    src={branch.photo}
+                    alt=""
+                    width={320}
+                    height={320}
+                    class="size-full object-cover"
+                    style={`object-position: ${branch.photoPosition}; transform: scale(2.1); transform-origin: ${branch.photoPosition};`}
+                  />
+                </span>
+                <p class="mt-3 text-sm font-bold text-stone-800">{branch.parentsLabel}</p>
+                <p class="mt-1 font-display text-xl text-stone-950">{branch.parentsName}</p>
               </div>
 
               <p class="mt-4 text-center text-xs font-bold tracking-wide text-blue-700 uppercase">Hermanos</p>

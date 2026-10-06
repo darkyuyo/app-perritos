@@ -1,10 +1,16 @@
 /**
  * Plantilla de la manada.
  *
- * Completa aquí los textos de cada perro, y los nombres de abuelos y papás en `pedigree`.
+ * Completa aquí los textos de cada perro.
  * Las fotos van en src/assets/fotos/<carpeta>/.
  * Para sumar otro perro: agrégalo a `dogs`, crea su carpeta de fotos y ajusta la familia.
  */
+
+import grandparentsPhoto from "../assets/icon/familia/papas.png";
+import marthaPhoto from "../assets/icon/familia/martha.jpg";
+import rominaPhoto from "../assets/icon/familia/romina.jpg";
+import goldenIcon from "../assets/icon/icongolden.png";
+import salchichaIcon from "../assets/icon/iconsalchicha.png";
 
 export const pending = "Por completar";
 
@@ -45,6 +51,13 @@ export interface Accent {
   dot: string;
   ring: string;
 }
+
+export const breedIcons = {
+  maddy: salchichaIcon,
+  blacky: salchichaIcon,
+  simba: goldenIcon,
+  charlotte: goldenIcon,
+} as const;
 
 export const accents: Record<DogSlug, Accent> = {
   maddy: {
@@ -110,6 +123,9 @@ export const dogs: Dog[] = [
     siblingSlug: "blacky",
     cousinSlugs: ["simba", "charlotte"],
     ...profile("Maddy"),
+    birthdate: "01/10/2023",
+    arrived: "01/12/2023",
+    personality: "Es chiquitita y se cree una princesa.",
   },
   {
     slug: "blacky",
@@ -117,6 +133,9 @@ export const dogs: Dog[] = [
     siblingSlug: "maddy",
     cousinSlugs: ["simba", "charlotte"],
     ...profile("Blacky"),
+    birthdate: "17/09/2022",
+    arrived: "17/11/2022",
+    personality: "Siempre quiere estar con sus juguetes y que se lo tiren.",
   },
   {
     slug: "simba",
@@ -124,6 +143,9 @@ export const dogs: Dog[] = [
     siblingSlug: "charlotte",
     cousinSlugs: ["maddy", "blacky"],
     ...profile("Simba"),
+    birthdate: "01/09/2025",
+    arrived: "04/11/2026",
+    personality: "Siempre anda con algo en la boca.",
   },
   {
     slug: "charlotte",
@@ -131,6 +153,9 @@ export const dogs: Dog[] = [
     siblingSlug: "simba",
     cousinSlugs: ["maddy", "blacky"],
     ...profile("Charlotte"),
+    birthdate: "01/09/2025",
+    arrived: "04/11/2026",
+    personality: "Es cariñosa y le gusta meterse a la piscina.",
   },
 ];
 
@@ -150,17 +175,21 @@ export function packLine(dog: Dog): string {
 
 export const pedigree = {
   grandparentsLabel: "Abuelos en común",
-  grandparentsName: pending,
-  note: "Maddy y Blacky son hermanos. Charlotte y Simba son hermanos. Entre las dos parejas son primos, porque sus papás también son hermanos.",
+  grandparentsName: "Alfredo Llanos e Ingrid Frelijj",
+  grandparentsPhoto,
   branches: [
     {
-      parentsLabel: "Papás de Maddy y Blacky",
-      parentsName: pending,
+      parentsLabel: "Mamá de Maddy y Blacky",
+      parentsName: "Romina Llanos",
+      photo: rominaPhoto,
+      photoPosition: "center 42%",
       slugs: ["maddy", "blacky"] as const,
     },
     {
-      parentsLabel: "Papás de Charlotte y Simba",
-      parentsName: pending,
+      parentsLabel: "Mamá de Charlotte y Simba",
+      parentsName: "Martha Llanos",
+      photo: marthaPhoto,
+      photoPosition: "center 22%",
       slugs: ["charlotte", "simba"] as const,
     },
   ],

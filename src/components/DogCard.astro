@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { accents, packLine, type Dog } from "../data/dogs";
+import { accents, type Dog } from "../data/dogs";
 import { listPhotos } from "../lib/photos";
 
 interface Props {
@@ -38,7 +38,7 @@ const cover = listPhotos(dog.slug)[0];
       <span class:list={["size-2.5 shrink-0 rounded-full", accent.dot]} aria-hidden="true"></span>
       <h3 class="font-display text-2xl text-blue-950">{dog.name}</h3>
     </div>
-    <p class="mt-2 text-sm leading-relaxed text-pretty text-stone-600">{packLine(dog)}</p>
+    <p class="mt-2 text-sm leading-relaxed text-pretty text-stone-600">{dog.personality}</p>
     <p class="mt-4 text-sm font-bold text-blue-700">Ver ficha</p>
   </div>
 </a>
